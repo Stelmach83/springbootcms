@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="<%=request.getContextPath()%>/">Spring CMS</a>
@@ -37,6 +36,7 @@
         </div>
     </div>
 </nav>
-<br><br>
+<br>
+
 
 

@@ -9,20 +9,44 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
     <title>Article</title>
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #34383C;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
 </head>
-<body>
+<body class="app">
 
 <jsp:include page="/WEB-INF/jsp/header/header.jsp"/>
-<div class="container">
+<div class="app-body">
+    <div class="container">
+        <main class="main">
 
-    <div class="content">
+            <p>${artic.toString()}</p>
+            <hr>
+            <a href="#" onClick="history.go(-1);return true;">Go back</a>
 
-        <p>${artic.toString()}</p>
-        <hr>
-        <a href="#" onClick="history.go(-1);return true;">Go back</a>
-
+        </main>
     </div>
-
 </div>
 
 </body>

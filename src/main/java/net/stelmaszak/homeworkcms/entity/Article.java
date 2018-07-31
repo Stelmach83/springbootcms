@@ -26,11 +26,11 @@ public class Article implements InterfaceEntity {
     private String content;
     @Column(length = 100)
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created = new Date();
+//    @Temporal(TemporalType.TIMESTAMP)
+    private String created = new Date().toString();
     @Column(length = 100)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updated = new Date();
+//    @Temporal(TemporalType.TIMESTAMP)
+    private String updated = "";
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "article_category", joinColumns = {@JoinColumn(name = "article_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private List<Category> categories = new ArrayList<>();
@@ -82,19 +82,25 @@ public class Article implements InterfaceEntity {
         this.content = content;
     }
 
-    public Date getCreated() {
-        return created;
+    public String getCreated() {
+        String formated = created.substring(0, created.length() - 5);
+        return formated;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
-    public Date getUpdated() {
-        return updated;
+    public String getUpdated() {
+        if (updated.length() > 7) {
+            String formated = updated.substring(0, updated.length() - 5);
+            return formated;
+        } else {
+            return "never";
+        }
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 
