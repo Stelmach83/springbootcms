@@ -23,16 +23,16 @@ public class CategoryController {
         return "categories";
     }
 
-    @GetMapping("/editcat/{name}")
-    public String editCat(Model model, @PathVariable String name) {
+    @GetMapping("/editcat/{id}")
+    public String editCat(Model model, @PathVariable Long id) {
         List<Category> categoryList = entityDao.loadAllCategories();
         model.addAttribute("categories", categoryList);
-        Category editcat = entityDao.loadCategoryByName(name);
+        Category editcat = entityDao.loadCategoryById(id);
         model.addAttribute("editcat", editcat);
         return "categories";
     }
 
-    @PostMapping("/editcat/{name}")
+    @PostMapping("/editcat/{id}")
     public String editCatPost(Model model, @ModelAttribute Category editcat) {
         entityDao.updateEntity(editcat);
         List<Category> categoryList = entityDao.loadAllCategories();
@@ -57,9 +57,9 @@ public class CategoryController {
         return "categories";
     }
 
-    @RequestMapping("/delcat/{name}")
-    public String delCat(Model model, @PathVariable String name) {
-        Category delcat = entityDao.loadCategoryByName(name);
+    @RequestMapping("/delcat/{id}")
+    public String delCat(Model model, @PathVariable Long id) {
+        Category delcat = entityDao.loadCategoryById(id);
         List<Article> articleList = delcat.getArticles();
         for (Article a : articleList) {
             a.removeCategory(delcat);

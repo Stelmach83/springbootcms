@@ -1,6 +1,7 @@
 package net.stelmaszak.homeworkcms.dao;
 
 import net.stelmaszak.homeworkcms.entity.Article;
+import net.stelmaszak.homeworkcms.entity.Author;
 import net.stelmaszak.homeworkcms.entity.Category;
 import net.stelmaszak.homeworkcms.entity.InterfaceEntity;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -26,9 +28,18 @@ public class EntityDao {
         entityManager.merge(entity);
     }
 
-    // DO SKONCZENIA
     public Article loadArticleById(Long id) {
         Article loaded = entityManager.find(Article.class, id);
+        return loaded;
+    }
+
+    public Author loadAuthorById(Long id) {
+        Author loaded = entityManager.find(Author.class, id);
+        return loaded;
+    }
+
+    public Category loadCategoryById(Long id) {
+        Category loaded = entityManager.find(Category.class, id);
         return loaded;
     }
 
@@ -63,5 +74,18 @@ public class EntityDao {
         query.setParameter("name", name);
         Category category = (Category) query.getSingleResult();
         return category;
+    }
+
+    public List<Article> loadArticlesByAuthor(Author author) {
+        Query query = entityManager.createQuery("SELECT art FROM Article art WHERE art.author = :author");
+        query.setParameter("author", author);
+        List<Article> articleList = query.getResultList();
+        return articleList;
+    }
+
+    public List<Author> loadAllAuthors() {
+        Query query = entityManager.createQuery("SELECT auth FROM Author auth");
+        List<Author> authorList = query.getResultList();
+        return authorList;
     }
 }

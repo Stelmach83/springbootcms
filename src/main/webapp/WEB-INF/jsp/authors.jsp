@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
-    <title>Categories</title>
+    <title>Authors</title>
 </head>
 <body>
 
@@ -18,71 +18,73 @@
 <div class="container">
     <div class="content">
 
-        <h4>CATEGORIES</h4>
+        <h4>AUTHORS</h4>
         <br>
 
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">id</th>
-                <th scope="col">Category</th>
-                <th scope="col">Description</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="cat" items="${categories}">
+            <c:forEach var="auth" items="${authors}">
                 <tr>
-                    <th scope="row">${cat.getId()}</th>
-                    <td>${cat.getName()}</td>
-                    <td>${cat.getDescription()}</td>
-                    <td><a href="<%=request.getContextPath()%>/editcat/${cat.getId()}">edit</a></td>
-                    <td><a href="<%=request.getContextPath()%>/delcat/${cat.getId()}">delete</a></td>
+                    <th scope="row">${auth.getId()}</th>
+                    <td>${auth.getFirstName()}</td>
+                    <td>${auth.getLastName()}</td>
+                    <td><a href="<%=request.getContextPath()%>/editauth/${auth.getId()}">edit</a></td>
+                    <td><a href="<%=request.getContextPath()%>/delauth/${auth.getId()}">delete</a></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
         <br>
-        <a href="<%=request.getContextPath()%>/addcat">
+        <a href="<%=request.getContextPath()%>/addauth">
             <button type="button" class="btn btn-primary btn-sm">add</button>
         </a>
-        <c:if test="${not empty editcat}">
+        <c:if test="${not empty editauth}">
             <br><br>
-            <h5>Edit ${editcat.getName()}</h5>
-            <form:form method="post" modelAttribute="editcat">
+            <h5>Edit ${editauth.getFirstName()} ${editauth.getLastName()}</h5>
+            <form:form method="post" modelAttribute="editauth">
                 <form>
                     <form:input type="hidden" class="form-control" id="exampleFormControlInput0"
-                                value="${editcat.getId()}" path="id"/>
+                                value="${editauth.getId()}" path="id"/>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Name</label>
+                        <label for="exampleFormControlInput1">First Name</label>
                         <form:input type="text" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="${editcat.getName()}" path="name"/>
+                                    placeholder="${editauth.getFirstName()}" path="firstName"/>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput2">Description</label>
+                        <label for="exampleFormControlInput2">Last Name</label>
                         <form:input type="text" class="form-control" id="exampleFormControlInput2"
-                                    placeholder="${editcat.getDescription()}" path="description"/>
+                                    placeholder="${editauth.getLastName()}" path="lastName"/>
                     </div>
                     <input type="submit" value="Save">
                 </form>
             </form:form>
         </c:if>
 
-        <c:if test="${not empty addcat}">
+        <c:if test="${not empty addauth}">
             <br><br>
-            <h5>Add category</h5>
-            <form:form method="post" modelAttribute="addcat">
+            <h5>Add author</h5>
+            <form:form method="post" modelAttribute="addauth">
                 <form>
+                    <form:input type="hidden" class="form-control" id="exampleFormControlInput0"
+                                value="${addauth.getId()}" path="id"/>
                     <div class="form-group">
-                        <label for="exampleFormControlInput3">Name</label>
-                        <form:input type="text" class="form-control" id="exampleFormControlInput3"
-                                    placeholder="name" path="name"/>
+                        <label for="exampleFormControlInput1">First Name</label>
+                        <form:input type="text" class="form-control" id="exampleFormControlInput1"
+                                    placeholder="${addauth.getFirstName()}" path="firstName"/>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput4">Description</label>
-                        <form:input type="text" class="form-control" id="exampleFormControlInput4"
-                                    placeholder="description" path="description"/>
+                        <label for="exampleFormControlInput2">Last Name</label>
+                        <form:input type="text" class="form-control" id="exampleFormControlInput2"
+                                    placeholder="${addauth.getLastName()}" path="lastName"/>
                     </div>
                     <input type="submit" value="Save">
                 </form>

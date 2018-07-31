@@ -18,8 +18,8 @@ public class Article implements InterfaceEntity {
     private Long id;
     @Column(nullable = false, length = 200)
     private String title;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "author_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "author_id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Author author;
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -60,6 +60,10 @@ public class Article implements InterfaceEntity {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public void removeAuthor() {
+        this.author = null;
     }
 
     public List<Category> getCategories() {

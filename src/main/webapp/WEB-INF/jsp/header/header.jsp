@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">Spring CMS</a>
+        <a class="navbar-brand" href="<%=request.getContextPath()%>/">Spring CMS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,9 +28,9 @@
                         ADMIN
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/categories">Categories Panel</a>
-                        <a class="dropdown-item" href="#">Authors Panel</a>
-                        <a class="dropdown-item" href="#">Articles Panel</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/categories">Categories Panel</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/authors">Authors Panel</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/artpanel">Articles Panel</a>
                     </div>
                 </li>
             </ul>
