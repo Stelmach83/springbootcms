@@ -1,6 +1,7 @@
 package net.stelmaszak.homeworkcms.controller;
 
 import net.stelmaszak.homeworkcms.dao.EntityDao;
+import net.stelmaszak.homeworkcms.entity.Article;
 import net.stelmaszak.homeworkcms.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,6 +52,19 @@ public class CategoryController {
     @PostMapping("/addcat")
     public String saveCat(Model model, @ModelAttribute Category addcat) {
         entityDao.saveEntity(addcat);
+        List<Category> categoryList = entityDao.loadAllCategories();
+        model.addAttribute("categories", categoryList);
+        return "categories";
+    }
+
+    @RequestMapping("/delcat/{name}")
+    public String delCat(Model model, @PathVariable String name) {
+        Category delcat = entityDao.loadCategoryByName(name);
+        List<Article> articleList = delcat.getArticles();
+        for (Article a : articleList) {
+            a.removeCategory(delcat);
+        }
+        entityDao.deleteEntity(delcat);
         List<Category> categoryList = entityDao.loadAllCategories();
         model.addAttribute("categories", categoryList);
         return "categories";

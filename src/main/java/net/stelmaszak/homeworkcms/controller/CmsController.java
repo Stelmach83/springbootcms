@@ -3,7 +3,6 @@ package net.stelmaszak.homeworkcms.controller;
 import net.stelmaszak.homeworkcms.dao.EntityDao;
 import net.stelmaszak.homeworkcms.entity.Article;
 import net.stelmaszak.homeworkcms.entity.Category;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

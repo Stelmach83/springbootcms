@@ -39,7 +39,7 @@
                     <td>${cat.getName()}</td>
                     <td>${cat.getDescription()}</td>
                     <td><a href="<%=request.getContextPath()%>/editcat/${cat.getName()}">edit</a></td>
-                    <td><a href="<%=request.getContextPath()%>/categories/${cat.getName()}">delete</a></td>
+                    <td><a href="<%=request.getContextPath()%>/delcat/${cat.getName()}">delete</a></td>
                 </tr>
             </c:forEach>
             </tbody>
