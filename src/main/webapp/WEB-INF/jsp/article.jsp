@@ -12,19 +12,16 @@
 </head>
 <body>
 
+<jsp:include page="/WEB-INF/jsp/header/header.jsp"/>
 <div class="container">
 
-    <h4>
-        <c:forEach var="cat" items="${categories}">
-            <c:set var="name" value="${cat.getName()}"/>
-            <a href="<%=request.getContextPath()%>/articles/${cat.getName()}"
-               style="padding-right: 1em">${fn:toUpperCase(name)}</a>
-        </c:forEach>
-    </h4>
-    <br>
-    <p>${artic.toString()}</p>
-    <hr>
-    <a href="#" onClick="history.go(-1);return true;">Go back</a>
+    <div class="content">
+
+        <p>${artic.toString()}</p>
+        <hr>
+        <a href="#" onClick="history.go(-1);return true;">Go back</a>
+
+    </div>
 
 </div>
 

@@ -12,37 +12,34 @@
 </head>
 <body>
 
+
+<jsp:include page="/WEB-INF/jsp/header/header.jsp"/>
+
 <div class="container">
 
-    <h4>
-        <c:forEach var="cat" items="${categories}">
-            <c:set var="name" value="${cat.getName()}"/>
-            <a href="<%=request.getContextPath()%>/articles/${cat.getName()}"
-               style="padding-right: 1em">${fn:toUpperCase(name)}</a>
+    <div class="content">
+
+        <%--CATEGORY TITLE--%>
+        <c:if test="${not empty category}">
+            <c:set var="thiscat" value="${category.getName()}"/>
+            <h4>${fn:toUpperCase(thiscat)}</h4>
+        </c:if>
+
+        <%--MAIN TITLE--%>
+        <c:if test="${empty category}">
+            <h4>MOST RECENT</h4>
+        </c:if>
+
+        <br>
+
+        <c:forEach var="a" items="${articles}">
+            <h4>${a.getTitle()}</h4>
+            <h5>By ${a.getAuthor().getFirstName()} ${a.getAuthor().getLastName()}, added: ${a.getCreated()}</h5>
+            <p>${a.getContent()} <a href="<%=request.getContextPath()%>/article/${a.getId()}">więcej</a></p>
+            <hr>
         </c:forEach>
-    </h4>
-    <br>
 
-    <%--CATEGORY TITLE--%>
-    <c:if test="${not empty category}">
-        <c:set var="thiscat" value="${category.getName()}"/>
-        <h4>${fn:toUpperCase(thiscat)}</h4>
-    </c:if>
-
-    <%--MAIN TITLE--%>
-    <c:if test="${empty category}">
-        <h4>MOST RECENT</h4>
-    </c:if>
-
-    <br>
-
-    <c:forEach var="a" items="${articles}">
-        <h4>${a.getTitle()}</h4>
-        <h5>By ${a.getAuthor().getFirstName()} ${a.getAuthor().getLastName()}, added: ${a.getCreated()}</h5>
-        <p>${a.getContent()}  <a href="<%=request.getContextPath()%>/article/${a.getId()}">więcej</a></p>
-        <hr>
-    </c:forEach>
-
+    </div>
 
 </div>
 
