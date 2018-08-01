@@ -21,9 +21,11 @@ public class CmsController {
     public String articles(Model model) {
         List<Article> articleList = entityDao.loadSomeArticles(5);
         for (Article a : articleList) {
-            String shortCont = a.getContent().substring(0, 200) + "..";
-            entityDao.detachEntity(a);
-            a.setContent(shortCont);
+            if (a.getContent().length() > 199) {
+                String shortCont = a.getContent().substring(0, 200) + "..";
+                entityDao.detachEntity(a);
+                a.setContent(shortCont);
+            }
         }
         List<Category> categoryList = entityDao.loadAllCategories();
         model.addAttribute("articles", articleList);
@@ -36,9 +38,11 @@ public class CmsController {
         Category category = entityDao.loadCategoryByName(cat);
         List<Article> articleList = entityDao.loadArticlesByCategory(category);
         for (Article a : articleList) {
-            String shortCont = a.getContent().substring(0, 200) + "..";
-            entityDao.detachEntity(a);
-            a.setContent(shortCont);
+            if (a.getContent().length() > 199) {
+                String shortCont = a.getContent().substring(0, 200) + "..";
+                entityDao.detachEntity(a);
+                a.setContent(shortCont);
+            }
         }
         List<Category> categoryList = entityDao.loadAllCategories();
         model.addAttribute("articles", articleList);

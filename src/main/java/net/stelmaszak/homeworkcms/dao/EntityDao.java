@@ -57,7 +57,7 @@ public class EntityDao {
     }
 
     public List<Article> loadSomeArticles(int limit) {
-        Query query = entityManager.createQuery("SELECT art FROM Article art ORDER BY art.created ASC");
+        Query query = entityManager.createQuery("SELECT art FROM Article art ORDER BY art.created DESC");
         List<Article> articleList = query.setMaxResults(limit).getResultList();
         return articleList;
     }

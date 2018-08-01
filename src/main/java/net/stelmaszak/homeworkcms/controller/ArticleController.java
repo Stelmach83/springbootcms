@@ -92,6 +92,10 @@ public class ArticleController {
     @GetMapping("/addart")
     public String addArticle(Model model) {
         List<Category> categoryList = entityDao.loadAllCategories();
+        categoryCache = new HashMap<>();
+        for (Category c : categoryList) {
+            categoryCache.put(c.getId().toString(), c);
+        }
         model.addAttribute("categories", categoryList);
         List<Article> articleList = entityDao.loadAllArticles();
         model.addAttribute("articles", articleList);
