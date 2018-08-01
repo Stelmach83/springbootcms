@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -58,7 +57,7 @@ public class EntityDao {
     }
 
     public List<Article> loadSomeArticles(int limit) {
-        Query query = entityManager.createQuery("SELECT art FROM Article art ORDER BY art.created desc");
+        Query query = entityManager.createQuery("SELECT art FROM Article art ORDER BY art.created ASC");
         List<Article> articleList = query.setMaxResults(limit).getResultList();
         return articleList;
     }
@@ -81,6 +80,13 @@ public class EntityDao {
         query.setParameter("author", author);
         List<Article> articleList = query.getResultList();
         return articleList;
+    }
+
+    public List<Article> loadArticlesByCategory(Category category) {
+        Query query = entityManager.createQuery("SELECT distinct art FROM Article art JOIN art.categories cat JOIN cat.articles WHERE cat = :category");
+        query.setParameter("category", category);
+        List<Article> articleSet = query.getResultList();
+        return articleSet;
     }
 
     public List<Author> loadAllAuthors() {

@@ -37,5 +37,4 @@ public class AppConfig {
     public CategoryConverter getCategoryConverter() {
         return new CategoryConverter();
     }
-
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Date;
+
 @Controller
 public class InitDB {
 
@@ -48,50 +50,63 @@ public class InitDB {
         c5.setName("sports");
         c5.setDescription("sports related articles");
 
+        Date created = new Date();
+
         Article article1 = new Article();
         article1.setTitle("The title of article 1.");
         article1.setAuthor(a1);
         article1.setContent("This is the content of the article1. This is the content of the article1. This is the content of the article1. This is the content of the article1. This is the content of the article1. This is the content of the article1. This is the content of the article1. This is the content of the article1. This is the content of the article1. This is the content of the article1. ");
+        article1.setCreated(created);
         Article article2 = new Article();
         article2.setTitle("The title of article 2.");
         article2.setAuthor(a2);
         article2.setContent("This is the content of the article2. This is the content of the article2. This is the content of the article2. This is the content of the article2. This is the content of the article2. This is the content of the article2. This is the content of the article2. This is the content of the article2. This is the content of the article2. This is the content of the article2. ");
+        article2.setCreated(created);
         Article article3 = new Article();
         article3.setTitle("The title of article 3.");
         article3.setAuthor(a3);
         article3.setContent("This is the content of the article3. This is the content of the article3. This is the content of the article3. This is the content of the article3. This is the content of the article3. This is the content of the article3. This is the content of the article3. This is the content of the article3. This is the content of the article3. This is the content of the article3. ");
+        article3.setCreated(created);
         Article article4 = new Article();
         article4.setTitle("The title of article 4.");
         article4.setAuthor(a4);
         article4.setContent("This is the content of the article4. This is the content of the article4. This is the content of the article4. This is the content of the article4. This is the content of the article4. This is the content of the article4. This is the content of the article4. This is the content of the article4. This is the content of the article4. This is the content of the article4. ");
+        article4.setCreated(created);
         Article article5 = new Article();
         article5.setTitle("The title of article 5.");
         article5.setAuthor(a5);
         article5.setContent("This is the content of the article5. This is the content of the article5. This is the content of the article5. This is the content of the article5. This is the content of the article5. This is the content of the article5. This is the content of the article5. This is the content of the article5. This is the content of the article5. This is the content of the article5. ");
+        article5.setCreated(created);
         Article article6 = new Article();
         article6.setTitle("The title of article 6.");
         article6.setAuthor(a1);
         article6.setContent("This is the content of the article6. This is the content of the article6. This is the content of the article6. This is the content of the article6. This is the content of the article6. This is the content of the article6. This is the content of the article6. This is the content of the article6. This is the content of the article6. This is the content of the article6. ");
+        article6.setCreated(created);
         Article article7 = new Article();
         article7.setTitle("The title of article 7.");
         article7.setAuthor(a1);
         article7.setContent("This is the content of the article7. This is the content of the article7. This is the content of the article7. This is the content of the article7. This is the content of the article7. This is the content of the article7. This is the content of the article7. This is the content of the article7. This is the content of the article7. This is the content of the article7. ");
+        article7.setCreated(created);
         Article article8 = new Article();
         article8.setTitle("The title of article 8.");
         article8.setAuthor(a2);
         article8.setContent("This is the content of the article8. This is the content of the article8. This is the content of the article8. This is the content of the article8. This is the content of the article8. This is the content of the article8. This is the content of the article8. This is the content of the article8. This is the content of the article8. This is the content of the article8. ");
+        article8.setCreated(created);
         Article article9 = new Article();
         article9.setTitle("The title of article 9.");
         article9.setAuthor(a3);
         article9.setContent("This is the content of the article9. This is the content of the article9. This is the content of the article9. This is the content of the article9. This is the content of the article9. This is the content of the article9. This is the content of the article9. This is the content of the article9. This is the content of the article9. This is the content of the article9. ");
+        article9.setCreated(created);
         Article article10 = new Article();
         article10.setTitle("The title of article 10.");
         article10.setAuthor(a4);
         article10.setContent("This is the content of the article10. This is the content of the article10. This is the content of the article10. This is the content of the article10. This is the content of the article10. This is the content of the article10. This is the content of the article10. This is the content of the article10. This is the content of the article10. This is the content of the article10. ");
+        article10.setCreated(created);
         Article article11 = new Article();
         article11.setTitle("The title of article 11.");
         article11.setAuthor(a5);
         article11.setContent("This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. ");
+        article11.setCreated(created);
 
         entityDao.saveEntity(a1);
         entityDao.saveEntity(a2);
@@ -117,7 +132,6 @@ public class InitDB {
         entityDao.saveEntity(article9);
         entityDao.saveEntity(article10);
         entityDao.saveEntity(article11);
-
 
         article1.addCategory(c1);
         article1.addCategory(c2);

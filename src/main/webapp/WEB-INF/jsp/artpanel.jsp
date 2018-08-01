@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <html>
 <head>
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
@@ -52,6 +54,9 @@
                         <form:input type="hidden" class="form-control" id="exampleFormControlInput0"
                                     value="${editart.getId()}" path="id"/>
 
+                        <form:input type="hidden" class="form-control" id="exampleFormControlInputDate"
+                                    path="created" name="created" value="${editart.getCreated().toString()}"/>
+
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Title</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput1"
@@ -69,15 +74,47 @@
                             <form:select items="${authors}" itemValue="id" itemLabel="fullName" class="form-control" id="exampleFormControlInput3" path="author.id"/>
                         </div>
 
-                            <%--<div class="form-group">--%>
+                        <%--<div class="form-group">--%>
                             <%--<label for="exampleFormControlInput4">Categories</label>--%>
-                            <%--<form:select items="${categories}" itemValue="id" multiple="true" itemLabel="name" class="form-control" id="exampleFormControlInput4" path="categories.id"/>--%>
-                            <%--</div>--%>
+                            <%--<form:select items="${categories}" itemValue="id" multiple="true" itemLabel="name" class="form-control" id="exampleFormControlInput4" path="categories"/>--%>
+                        <%--</div>--%>
 
                         <input type="submit" value="Save">
                     </form>
                 </form:form>
+            </c:if>
 
+            <c:if test="${not empty addart}">
+                <br><br>
+                <h5>Add article</h5>
+                <form:form method="post" modelAttribute="addart">
+                    <form>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Title</label>
+                            <form:input type="text" class="form-control" id="exampleFormControlInput1"
+                                        placeholder="${addart.getTitle()}" path="title"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput2">Content</label>
+                            <form:textarea class="form-control" rows="4" id="exampleFormControlInput2"
+                                           placeholder="${addart.getContent()}" path="content"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput3">Author</label>
+                            <form:select items="${authors}" itemValue="id" itemLabel="fullName" class="form-control" id="exampleFormControlInput3" path="author.id"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput4">Categories</label>
+                            <form:select items="${categories}" itemValue="id" multiple="true" itemLabel="name" name="cat" class="form-control" id="exampleFormControlInput4" path="categories"/>
+                        </div>
+
+                        <input type="submit" value="Save">
+                    </form>
+                </form:form>
             </c:if>
 
             <div class="table">

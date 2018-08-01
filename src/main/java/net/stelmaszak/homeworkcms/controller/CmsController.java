@@ -34,7 +34,7 @@ public class CmsController {
     @RequestMapping("/articles/{cat}")
     public String articlesByCat(Model model, @PathVariable String cat) {
         Category category = entityDao.loadCategoryByName(cat);
-        List<Article> articleList = category.getArticles();
+        List<Article> articleList = entityDao.loadArticlesByCategory(category);
         for (Article a : articleList) {
             String shortCont = a.getContent().substring(0, 200) + "..";
             entityDao.detachEntity(a);

@@ -60,7 +60,7 @@ public class CategoryController {
     @RequestMapping("/delcat/{id}")
     public String delCat(Model model, @PathVariable Long id) {
         Category delcat = entityDao.loadCategoryById(id);
-        List<Article> articleList = delcat.getArticles();
+        List<Article> articleList = entityDao.loadArticlesByCategory(delcat);
         for (Article a : articleList) {
             a.removeCategory(delcat);
         }

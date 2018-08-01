@@ -4,10 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "article")
@@ -24,14 +21,17 @@ public class Article implements InterfaceEntity {
     private Author author;
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
-    @Column(length = 100)
-    @NotNull
-//    @Temporal(TemporalType.TIMESTAMP)
-    private String created = new Date().toString();
-    @Column(length = 100)
-//    @Temporal(TemporalType.TIMESTAMP)
-    private String updated = "";
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updated;
+
+    //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "article_category", joinColumns = {@JoinColumn(name = "article_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private List<Category> categories = new ArrayList<>();
 
@@ -82,31 +82,25 @@ public class Article implements InterfaceEntity {
         this.content = content;
     }
 
-    public String getCreated() {
-        String formated = created.substring(0, created.length() - 5);
-        return formated;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public String getUpdated() {
-        if (updated.length() > 7) {
-            String formated = updated.substring(0, updated.length() - 5);
-            return formated;
-        } else {
-            return "never";
-        }
+    public Date getUpdated() {
+        return updated;
     }
 
-    public void setUpdated(String updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 
     public void addCategory(Category category) {
         categories.add(category);
-        category.getArticles().add(this);
+//        category.getArticles().add(this);
     }
 
     public void removeCategory(Category category) {
