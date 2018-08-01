@@ -13,6 +13,7 @@
         html {
             overflow-y: scroll;
         }
+
         /* width */
         ::-webkit-scrollbar {
             width: 10px;
@@ -55,13 +56,24 @@
             </c:if>
 
             <br>
-
-            <c:forEach var="a" items="${articles}">
-                <h4>${a.getTitle()}</h4>
-                <h5>By ${a.getAuthor().getFirstName()} ${a.getAuthor().getLastName()}, added: ${a.getCreated()}</h5>
-                <p>${a.getContent()} <a href="<%=request.getContextPath()%>/article/${a.getId()}">więcej</a></p>
-                <hr>
+            <c:forEach var="art" items="${articles}">
+                <c:set var="cats" value="${art.getCategories()}"/>
+                <div class="card">
+                    <h4 class="card-header">${art.getTitle()}</h4>
+                    <div class="card-body">
+                        <p class="card-text">${art.getContent()} <a href="<%=request.getContextPath()%>/article/${art.getId()}">więcej</a></p>
+                        <p>categories:
+                            <c:forEach var="cat" items="${cats}">
+                                ${cat.getName()}
+                            </c:forEach>
+                        </p>
+                        <footer class="blockquote-footer">
+                            by <cite title="Source Title">${art.getAuthor().getFirstName()} ${art.getAuthor().getLastName()}, created: ${art.getCreated().toString()}, updated: ${art.getUpdated().toString()}, #${art.getId()}</cite>
+                        </footer>
+                    </div>
+                </div>
             </c:forEach>
+            <br>
 
         </main>
     </div>
