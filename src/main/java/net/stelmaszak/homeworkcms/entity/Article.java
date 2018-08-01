@@ -30,7 +30,6 @@ public class Article implements InterfaceEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
 
-    //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "article_category", joinColumns = {@JoinColumn(name = "article_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private List<Category> categories = new ArrayList<>();

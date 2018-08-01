@@ -74,10 +74,10 @@
                             <form:select items="${authors}" itemValue="id" itemLabel="fullName" class="form-control" id="exampleFormControlInput3" path="author.id"/>
                         </div>
 
-                        <%--<div class="form-group">--%>
-                            <%--<label for="exampleFormControlInput4">Categories</label>--%>
-                            <%--<form:select items="${categories}" itemValue="id" multiple="true" itemLabel="name" class="form-control" id="exampleFormControlInput4" path="categories"/>--%>
-                        <%--</div>--%>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput4">Categories</label>
+                            <form:select items="${categories}" itemValue="id" multiple="true" itemLabel="name" class="form-control" id="exampleFormControlInput4" path="categories"/>
+                        </div>
 
                         <input type="submit" value="Save">
                     </form>
@@ -109,7 +109,7 @@
 
                         <div class="form-group">
                             <label for="exampleFormControlInput4">Categories</label>
-                            <form:select items="${categories}" itemValue="id" multiple="true" itemLabel="name" name="cat" class="form-control" id="exampleFormControlInput4" path="categories"/>
+                            <form:select items="${categories}" itemValue="id" multiple="true" itemLabel="name" class="form-control" id="exampleFormControlInput4" path="categories"/>
                         </div>
 
                         <input type="submit" value="Save">
