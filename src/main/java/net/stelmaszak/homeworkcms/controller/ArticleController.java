@@ -43,7 +43,6 @@ public class ArticleController {
                 }
                 return null;
             }
-
         });
 
 
@@ -113,6 +112,26 @@ public class ArticleController {
     public String addArticlePost(Model model, @ModelAttribute Article article) {
         article.setCreated(new Date());
         entityDao.saveEntity(article);
+        List<Category> categoryList = entityDao.loadAllCategories();
+        model.addAttribute("categories", categoryList);
+        List<Article> articleList = entityDao.loadAllArticles();
+        model.addAttribute("articles", articleList);
+        return "artpanel";
+    }
+
+    @RequestMapping("/deleteart/{id}")
+    public String deleteArticle(Model model, @PathVariable Long id) {
+        Article delArticle = entityDao.loadArticleById(id);
+        List<Category> artCategories = entityDao.loadAllCategories();
+        for (Category category : artCategories) {
+            if (delArticle.getCategories().contains(category)) {
+                delArticle.removeCategory(category);
+            }
+        }
+        if (delArticle.getAuthor() != null) {
+            delArticle.setAuthor(null);
+        }
+        entityDao.deleteEntity(delArticle);
         List<Category> categoryList = entityDao.loadAllCategories();
         model.addAttribute("categories", categoryList);
         List<Article> articleList = entityDao.loadAllArticles();
