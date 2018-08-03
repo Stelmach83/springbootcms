@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
@@ -14,6 +15,7 @@
         html {
             overflow-y: scroll;
         }
+
         /* width */
         ::-webkit-scrollbar {
             width: 10px;
@@ -36,7 +38,6 @@
     </style>
 </head>
 <body class="app">
-
 
 <jsp:include page="/WEB-INF/jsp/header/header.jsp"/>
 <div class="app-body">
@@ -114,10 +115,8 @@
                     </form>
                 </form:form>
             </c:if>
-
         </main>
     </div>
 </div>
-
 </body>
 </html>

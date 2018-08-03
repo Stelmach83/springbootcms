@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
 <html>
 <head>
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
@@ -142,8 +141,11 @@
                                 ${cat.getName()}
                             </c:forEach>
                         </p>
+                        <c:set var="created" value="${art.getCreated()}" property="time"/>
+                        <c:set var="updated" value="${art.getUpdated()}" property="time"/>
                         <footer class="blockquote-footer">
-                            by <cite title="Source Title">${art.getAuthor().getFirstName()} ${art.getAuthor().getLastName()}, created: ${art.getCreated().toString()}, updated: ${art.getUpdated().toString()}, #${art.getId()}</cite>
+                            by <cite title="Source Title">${art.getAuthor().getFirstName()} ${art.getAuthor().getLastName()}, created: <fmt:formatDate value="${created}" pattern="dd/MM/yyyy HH:mm"/>, updated: <fmt:formatDate
+                                value="${updated}" pattern="dd/MM/yyyy HH:mm"/>, #${art.getId()}</cite>
                         </footer>
                         <div style="float: right">
                             <a href="<%=request.getContextPath()%>/editart/${art.getId()}" class="btn btn-primary btn-sm">edit</a> <a href="<%=request.getContextPath()%>/deleteart/${art.getId()}" class="btn btn-primary btn-sm">delete</a>
@@ -152,8 +154,6 @@
                 </div>
             </c:forEach>
             <br>
-
-
         </main>
     </div>
 </div>
