@@ -133,15 +133,15 @@ public class InitDB {
         article6.addCategory(c1);
         article6.addCategory(c2);
         article7.addCategory(c3);
-        article7.addCategory(c2);
+        article7.addCategory(c4);
         article8.addCategory(c4);
         article8.addCategory(c3);
         article9.addCategory(c4);
         article9.addCategory(c3);
         article10.addCategory(c3);
-        article10.addCategory(c1);
+        article10.addCategory(c4);
         article11.addCategory(c1);
-        article11.addCategory(c2);
+        article11.addCategory(c1);
 
         entityDao.saveEntity(article1);
         entityDao.saveEntity(article2);

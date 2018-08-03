@@ -35,6 +35,7 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
         .error {
             color: red;
         }
@@ -51,34 +52,32 @@
             <c:if test="${not empty editart}">
                 <br><br>
                 <h5>Edit article</h5>
-                <form:form method="post" modelAttribute="editart">
+                <form:form method="post" modelAttribute="article">
                     <form>
-                        <form:input type="hidden" class="form-control" id="exampleFormControlInput0"
-                                    value="${editart.getId()}" path="id"/>
-
-                        <form:input type="hidden" class="form-control" id="exampleFormControlInputDate"
-                                    path="created" name="created" value="${editart.getCreated().toString()}"/>
-
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Title</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="${editart.getTitle()}" path="title"/>
+                                        placeholder="${article.getTitle()}" path="title"/>
+                            <form:errors path="title" cssClass="error"/>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlInput2">Content</label>
                             <form:textarea class="form-control" rows="4" id="exampleFormControlInput2"
-                                           placeholder="${editart.getContent()}" path="content"/>
+                                           placeholder="${article.getContent()}" path="content"/>
+                            <form:errors path="content" cssClass="error"/>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlInput3">Author</label>
                             <form:select items="${authors}" itemValue="id" itemLabel="fullName" class="form-control" id="exampleFormControlInput3" path="author.id"/>
+                            <form:errors path="author.id" cssClass="error"/>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlInput4">Categories</label>
                             <form:select items="${categories}" itemValue="id" multiple="true" itemLabel="name" class="form-control" id="exampleFormControlInput4" path="categories"/>
+                            <form:errors path="categories" cssClass="error"/>
                         </div>
 
                         <input type="submit" value="Save">
@@ -89,29 +88,32 @@
             <c:if test="${not empty addart}">
                 <br><br>
                 <h5>Add article</h5>
-                <form:form method="post" modelAttribute="addart">
+                <form:form method="post" modelAttribute="article">
                     <form>
-
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Title</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="${addart.getTitle()}" path="title"/>
+                                        placeholder="${article.getTitle()}" path="title"/>
+                            <form:errors path="title" cssClass="error"/>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlInput2">Content</label>
                             <form:textarea class="form-control" rows="4" id="exampleFormControlInput2"
-                                           placeholder="${addart.getContent()}" path="content"/>
+                                           placeholder="${article.getContent()}" path="content"/>
+                            <form:errors path="content" cssClass="error"/>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlInput3">Author</label>
                             <form:select items="${authors}" itemValue="id" itemLabel="fullName" class="form-control" id="exampleFormControlInput3" path="author.id"/>
+                            <form:errors path="author.id" cssClass="error"/>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlInput4">Categories</label>
                             <form:select items="${categories}" itemValue="id" multiple="true" itemLabel="name" class="form-control" id="exampleFormControlInput4" path="categories"/>
+                            <form:errors path="categories" cssClass="error"/>
                         </div>
 
                         <input type="submit" value="Save">

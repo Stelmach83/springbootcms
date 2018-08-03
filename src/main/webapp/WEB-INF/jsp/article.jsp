@@ -35,6 +35,7 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
         .error {
             color: red;
         }
@@ -47,10 +48,25 @@
     <div class="container">
         <main class="main">
 
-            <p>${artic.toString()}</p>
-            <hr>
+            <c:set var="cats" value="${artic.getCategories()}"/>
+            <div class="card">
+                <h4 class="card-header">${artic.getTitle()}</h4>
+                <div class="card-body">
+                    <p class="card-text">${artic.getContent()}</p>
+                    <p>categories:
+                        <c:forEach var="cat" items="${cats}">
+                            ${cat.getName()}
+                        </c:forEach>
+                    </p>
+                    <c:set var="created" value="${artic.getCreated()}" property="time"/>
+                    <c:set var="updated" value="${artic.getUpdated()}" property="time"/>
+                    <footer class="blockquote-footer">
+                        by <cite title="Source Title">${artic.getAuthor().getFirstName()} ${artic.getAuthor().getLastName()}, created: <fmt:formatDate value="${created}" pattern="dd/MM/yyyy HH:mm"/>, updated: <fmt:formatDate
+                            value="${updated}" pattern="dd/MM/yyyy HH:mm"/>, #${artic.getId()}</cite>
+                    </footer>
+                </div>
+            </div>
             <a href="#" onClick="history.go(-1);return true;">Go back</a>
-
         </main>
     </div>
 </div>

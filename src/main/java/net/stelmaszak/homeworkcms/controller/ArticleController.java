@@ -9,9 +9,11 @@ import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,14 +25,16 @@ public class ArticleController {
 
     private Map<String, Category> categoryCache;
 
+    private Date created;
+
     @Autowired
     private EntityDao entityDao;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        sdf.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//        sdf.setLenient(true);
+//        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
 
         binder.registerCustomEditor(List.class, "categories", new CustomCollectionEditor(List.class) {
             protected Object convertElement(Object element) {
@@ -60,7 +64,9 @@ public class ArticleController {
     @GetMapping("/editart/{id}")
     public String editArticle(Model model, @PathVariable Long id) {
         Article article = entityDao.loadArticleById(id);
-        model.addAttribute("editart", article);
+        created = article.getCreated();
+        model.addAttribute("editart", "true");
+        model.addAttribute("article", article);
         List<Article> articleList = entityDao.loadAllArticles();
         model.addAttribute("articles", articleList);
         List<Category> categoryList = entityDao.loadAllCategories();
@@ -78,14 +84,33 @@ public class ArticleController {
     }
 
     @PostMapping("/editart/{id}")
-    public String editArticlePost(Model model, @ModelAttribute Article article) {
-        article.setUpdated(new Date());
-        entityDao.updateEntity(article);
-        List<Category> categoryList = entityDao.loadAllCategories();
-        model.addAttribute("categories", categoryList);
-        List<Article> articleList = entityDao.loadAllArticles();
-        model.addAttribute("articles", articleList);
-        return "artpanel";
+    public String editArticlePost(Model model, @Valid Article article, BindingResult result) {
+        if (result.hasErrors()) {
+            model.addAttribute("editart", "true");
+            List<Article> articleList = entityDao.loadAllArticles();
+            model.addAttribute("articles", articleList);
+            List<Category> categoryList = entityDao.loadAllCategories();
+            categoryCache = new HashMap<>();
+            for (Category c : categoryList) {
+                categoryCache.put(c.getId().toString(), c);
+            }
+            model.addAttribute("categories", categoryList);
+            List<Author> authorList = entityDao.loadAllAuthors();
+            for (Author a : authorList) {
+                a.setFullName(a.getFirstName() + " " + a.getLastName());
+            }
+            model.addAttribute("authors", authorList);
+            return "artpanel";
+        } else {
+            article.setUpdated(new Date());
+            article.setCreated(created);
+            entityDao.updateEntity(article);
+            List<Category> categoryList = entityDao.loadAllCategories();
+            model.addAttribute("categories", categoryList);
+            List<Article> articleList = entityDao.loadAllArticles();
+            model.addAttribute("articles", articleList);
+            return "artpanel";
+        }
     }
 
     @GetMapping("/addart")
@@ -103,20 +128,39 @@ public class ArticleController {
         for (Author a : authorList) {
             a.setFullName(a.getFirstName() + " " + a.getLastName());
         }
-        Article addart = new Article();
-        model.addAttribute("addart", addart);
+        Article article = new Article();
+        model.addAttribute("article", article);
+        model.addAttribute("addart", "true");
         return "artpanel";
     }
 
     @PostMapping("/addart")
-    public String addArticlePost(Model model, @ModelAttribute Article article) {
-        article.setCreated(new Date());
-        entityDao.saveEntity(article);
-        List<Category> categoryList = entityDao.loadAllCategories();
-        model.addAttribute("categories", categoryList);
-        List<Article> articleList = entityDao.loadAllArticles();
-        model.addAttribute("articles", articleList);
-        return "artpanel";
+    public String addArticlePost(Model model, @Valid Article article, BindingResult result) {
+        if (result.hasErrors()) {
+            List<Category> categoryList = entityDao.loadAllCategories();
+            categoryCache = new HashMap<>();
+            for (Category c : categoryList) {
+                categoryCache.put(c.getId().toString(), c);
+            }
+            model.addAttribute("categories", categoryList);
+            List<Article> articleList = entityDao.loadAllArticles();
+            model.addAttribute("articles", articleList);
+            List<Author> authorList = entityDao.loadAllAuthors();
+            model.addAttribute("authors", authorList);
+            for (Author a : authorList) {
+                a.setFullName(a.getFirstName() + " " + a.getLastName());
+            }
+            model.addAttribute("addart", "true");
+            return "artpanel";
+        } else {
+            article.setCreated(new Date());
+            entityDao.saveEntity(article);
+            List<Category> categoryList = entityDao.loadAllCategories();
+            model.addAttribute("categories", categoryList);
+            List<Article> articleList = entityDao.loadAllArticles();
+            model.addAttribute("articles", articleList);
+            return "artpanel";
+        }
     }
 
     @RequestMapping("/deleteart/{id}")

@@ -1,5 +1,6 @@
 package net.stelmaszak.homeworkcms.entity;
 
+import net.stelmaszak.homeworkcms.validator.MaxCategories;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -40,6 +41,7 @@ public class Article implements InterfaceEntity {
 
     @NotNull
     @NotEmpty
+    @MaxCategories("2")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "article_category", joinColumns = {@JoinColumn(name = "article_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private List<Category> categories = new ArrayList<>();

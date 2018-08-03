@@ -80,8 +80,6 @@
                 <h5>Edit ${author.getFirstName()} ${author.getLastName()}</h5>
                 <form:form method="post" modelAttribute="author">
                     <form>
-                        <%--<form:input type="hidden" class="form-control" id="exampleFormControlInput0"--%>
-                                    <%--value="${editauth.getId()}" path="id"/>--%>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">First Name</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput1"
@@ -105,8 +103,6 @@
                 <h5>Add author</h5>
                 <form:form method="post" modelAttribute="author">
                     <form>
-                            <%--<form:input type="hidden" class="form-control" id="exampleFormControlInput0"--%>
-                            <%--value="${editauth.getId()}" path="id"/>--%>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">First Name</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput1"

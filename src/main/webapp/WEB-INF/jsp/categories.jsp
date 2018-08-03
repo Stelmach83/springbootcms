@@ -41,8 +41,6 @@
     </style>
 </head>
 <body class="app">
-
-
 <jsp:include page="/WEB-INF/jsp/header/header.jsp"/>
 <div class="app-body">
     <div class="container">
@@ -82,8 +80,6 @@
                 <h5>Edit ${category.getName()}</h5>
                 <form:form method="post" modelAttribute="category">
                     <form>
-                        <%--<form:input type="hidden" class="form-control" id="exampleFormControlInput0"--%>
-                                    <%--value="${category.getId()}" path="id"/>--%>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Name</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput1"
