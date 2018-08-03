@@ -5,7 +5,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
@@ -18,7 +17,6 @@ public class Article implements InterfaceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @NotEmpty
     @Size(min = 1, max = 200)
     private String title;
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
@@ -27,7 +25,6 @@ public class Article implements InterfaceEntity {
     private Author author;
     @Column(columnDefinition = "TEXT")
     @NotNull
-    @NotEmpty
     @Size(min = 500)
     private String content;
 
@@ -40,7 +37,7 @@ public class Article implements InterfaceEntity {
     private Date updated;
 
     @NotNull
-    @NotEmpty
+    @Size(min = 1)
     @MaxCategories("2")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "article_category", joinColumns = {@JoinColumn(name = "article_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})

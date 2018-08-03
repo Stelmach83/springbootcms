@@ -1,8 +1,8 @@
 package net.stelmaszak.homeworkcms.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "author")
@@ -12,10 +12,10 @@ public class Author implements InterfaceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @NotEmpty
+    @Size(min = 1, max = 20)
     private String firstName;
     @NotNull
-    @NotEmpty
+    @Size(min = 1, max = 20)
     private String lastName;
     @Transient
     private String fullName;
