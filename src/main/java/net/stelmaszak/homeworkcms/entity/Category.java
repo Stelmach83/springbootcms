@@ -1,6 +1,7 @@
 package net.stelmaszak.homeworkcms.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Category implements InterfaceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 100, nullable = false)
+    @Size(min = 5, max = 20)
     private String name;
     private String description;
     @ManyToMany(mappedBy = "categories")

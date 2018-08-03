@@ -7,8 +7,10 @@ import net.stelmaszak.homeworkcms.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -31,20 +33,30 @@ public class AuthorController {
         List<Category> categoryList = entityDao.loadAllCategories();
         model.addAttribute("categories", categoryList);
         Author author = entityDao.loadAuthorById(id);
-        model.addAttribute("editauth", author);
+        model.addAttribute("author", author);
+        model.addAttribute("editauth", "true");
         List<Author> authorList = entityDao.loadAllAuthors();
         model.addAttribute("authors", authorList);
         return "authors";
     }
 
     @PostMapping("/editauth/{id}")
-    public String editAuthorPost(Model model, @ModelAttribute Author author) {
-        entityDao.updateEntity(author);
-        List<Category> categoryList = entityDao.loadAllCategories();
-        model.addAttribute("categories", categoryList);
-        List<Author> authorList = entityDao.loadAllAuthors();
-        model.addAttribute("authors", authorList);
-        return "authors";
+    public String editAuthorPost(Model model, @Valid Author author, BindingResult result) {
+        if (result.hasErrors()) {
+            List<Category> categoryList = entityDao.loadAllCategories();
+            model.addAttribute("categories", categoryList);
+            List<Author> authorList = entityDao.loadAllAuthors();
+            model.addAttribute("authors", authorList);
+            model.addAttribute("editauth", "true");
+            return "authors";
+        } else {
+            entityDao.updateEntity(author);
+            List<Category> categoryList = entityDao.loadAllCategories();
+            model.addAttribute("categories", categoryList);
+            List<Author> authorList = entityDao.loadAllAuthors();
+            model.addAttribute("authors", authorList);
+            return "authors";
+        }
     }
 
     @GetMapping("/addauth")
@@ -53,19 +65,29 @@ public class AuthorController {
         model.addAttribute("categories", categoryList);
         List<Author> authorList = entityDao.loadAllAuthors();
         model.addAttribute("authors", authorList);
-        Author addauth = new Author();
-        model.addAttribute("addauth", addauth);
+        Author author = new Author();
+        model.addAttribute("author", author);
+        model.addAttribute("addauth", "true");
         return "authors";
     }
 
     @PostMapping("/addauth")
-    public String addAuthorPost(Model model, @ModelAttribute Author author) {
-        entityDao.saveEntity(author);
-        List<Category> categoryList = entityDao.loadAllCategories();
-        model.addAttribute("categories", categoryList);
-        List<Author> authorList = entityDao.loadAllAuthors();
-        model.addAttribute("authors", authorList);
-        return "authors";
+    public String addAuthorPost(Model model, @Valid Author author, BindingResult result) {
+        if (result.hasErrors()) {
+            model.addAttribute("addauth", "true");
+            List<Category> categoryList = entityDao.loadAllCategories();
+            model.addAttribute("categories", categoryList);
+            List<Author> authorList = entityDao.loadAllAuthors();
+            model.addAttribute("authors", authorList);
+            return "authors";
+        } else {
+            entityDao.saveEntity(author);
+            List<Category> categoryList = entityDao.loadAllCategories();
+            model.addAttribute("categories", categoryList);
+            List<Author> authorList = entityDao.loadAllAuthors();
+            model.addAttribute("authors", authorList);
+            return "authors";
+        }
     }
 
     @RequestMapping("/delauth/{id}")

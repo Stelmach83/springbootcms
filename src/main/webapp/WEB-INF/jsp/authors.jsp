@@ -35,6 +35,9 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+        .error {
+            color: red;
+        }
     </style>
 </head>
 <body class="app">
@@ -74,20 +77,23 @@
             </a>
             <c:if test="${not empty editauth}">
                 <br><br>
-                <h5>Edit ${editauth.getFirstName()} ${editauth.getLastName()}</h5>
-                <form:form method="post" modelAttribute="editauth">
+                <h5>Edit ${author.getFirstName()} ${author.getLastName()}</h5>
+                <form:form method="post" modelAttribute="author">
                     <form>
-                        <form:input type="hidden" class="form-control" id="exampleFormControlInput0"
-                                    value="${editauth.getId()}" path="id"/>
+                        <%--<form:input type="hidden" class="form-control" id="exampleFormControlInput0"--%>
+                                    <%--value="${editauth.getId()}" path="id"/>--%>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">First Name</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="${editauth.getFirstName()}" path="firstName"/>
+                                        placeholder="${author.getFirstName()}" path="firstName"/>
+                            <form:errors path="firstName" cssClass="error"/>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput2">Last Name</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput2"
-                                        placeholder="${editauth.getLastName()}" path="lastName"/>
+                                        placeholder="${author.getLastName()}" path="lastName"/>
+                            <form:errors path="lastName" cssClass="error"/>
+
                         </div>
                         <input type="submit" value="Save">
                     </form>
@@ -97,19 +103,22 @@
             <c:if test="${not empty addauth}">
                 <br><br>
                 <h5>Add author</h5>
-                <form:form method="post" modelAttribute="addauth">
+                <form:form method="post" modelAttribute="author">
                     <form>
-                        <form:input type="hidden" class="form-control" id="exampleFormControlInput0"
-                                    value="${addauth.getId()}" path="id"/>
+                            <%--<form:input type="hidden" class="form-control" id="exampleFormControlInput0"--%>
+                            <%--value="${editauth.getId()}" path="id"/>--%>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">First Name</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="${addauth.getFirstName()}" path="firstName"/>
+                                        placeholder="${author.getFirstName()}" path="firstName"/>
+                            <form:errors path="firstName" cssClass="error"/>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput2">Last Name</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput2"
-                                        placeholder="${addauth.getLastName()}" path="lastName"/>
+                                        placeholder="${author.getLastName()}" path="lastName"/>
+                            <form:errors path="lastName" cssClass="error"/>
+
                         </div>
                         <input type="submit" value="Save">
                     </form>

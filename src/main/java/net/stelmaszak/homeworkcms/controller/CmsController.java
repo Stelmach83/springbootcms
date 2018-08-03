@@ -20,30 +20,19 @@ public class CmsController {
     @RequestMapping({"/", "/articles"})
     public String articles(Model model) {
         List<Article> articleList = entityDao.loadSomeArticles(5);
-        for (Article a : articleList) {
-            if (a.getContent().length() > 199) {
-                String shortCont = a.getContent().substring(0, 200) + "..";
-                entityDao.detachEntity(a);
-                a.setContent(shortCont);
-            }
-        }
+        shorterContent(articleList);
         List<Category> categoryList = entityDao.loadAllCategories();
         model.addAttribute("articles", articleList);
         model.addAttribute("categories", categoryList);
         return "articles";
     }
 
+
     @RequestMapping("/articles/{cat}")
     public String articlesByCat(Model model, @PathVariable String cat) {
         Category category = entityDao.loadCategoryByName(cat);
         List<Article> articleList = entityDao.loadArticlesByCategory(category);
-        for (Article a : articleList) {
-            if (a.getContent().length() > 199) {
-                String shortCont = a.getContent().substring(0, 200) + "..";
-                entityDao.detachEntity(a);
-                a.setContent(shortCont);
-            }
-        }
+        shorterContent(articleList);
         List<Category> categoryList = entityDao.loadAllCategories();
         model.addAttribute("articles", articleList);
         model.addAttribute("categories", categoryList);
@@ -60,4 +49,13 @@ public class CmsController {
         return "article";
     }
 
+    private void shorterContent(List<Article> articleList) {
+        for (Article a : articleList) {
+            if (a.getContent().length() > 199) {
+                String shortCont = a.getContent().substring(0, 200) + "..";
+                entityDao.detachEntity(a);
+                a.setContent(shortCont);
+            }
+        }
+    }
 }

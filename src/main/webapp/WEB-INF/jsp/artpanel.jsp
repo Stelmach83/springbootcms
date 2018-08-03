@@ -35,6 +35,9 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+        .error {
+            color: red;
+        }
     </style>
 </head>
 <body class="app">

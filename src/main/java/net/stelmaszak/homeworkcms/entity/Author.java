@@ -1,6 +1,8 @@
 package net.stelmaszak.homeworkcms.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "author")
@@ -9,9 +11,11 @@ public class Author implements InterfaceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, length = 100)
+    @NotNull
+    @NotEmpty
     private String firstName;
-    @Column(nullable = false, length = 100)
+    @NotNull
+    @NotEmpty
     private String lastName;
     @Transient
     private String fullName;

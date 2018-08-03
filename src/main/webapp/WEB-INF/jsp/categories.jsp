@@ -35,6 +35,9 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+        .error {
+            color: red;
+        }
     </style>
 </head>
 <body class="app">
@@ -76,20 +79,22 @@
             </a>
             <c:if test="${not empty editcat}">
                 <br><br>
-                <h5>Edit ${editcat.getName()}</h5>
-                <form:form method="post" modelAttribute="editcat">
+                <h5>Edit ${category.getName()}</h5>
+                <form:form method="post" modelAttribute="category">
                     <form>
-                        <form:input type="hidden" class="form-control" id="exampleFormControlInput0"
-                                    value="${editcat.getId()}" path="id"/>
+                        <%--<form:input type="hidden" class="form-control" id="exampleFormControlInput0"--%>
+                                    <%--value="${category.getId()}" path="id"/>--%>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Name</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="${editcat.getName()}" path="name"/>
+                                        placeholder="${category.getName()}" path="name"/>
+                            <form:errors path="name" cssClass="error"/>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput2">Description</label>
                             <form:input type="text" class="form-control" id="exampleFormControlInput2"
-                                        placeholder="${editcat.getDescription()}" path="description"/>
+                                        placeholder="${category.getDescription()}" path="description"/>
+                            <form:errors path="description" cssClass="error"/>
                         </div>
                         <input type="submit" value="Save">
                     </form>
@@ -99,17 +104,19 @@
             <c:if test="${not empty addcat}">
                 <br><br>
                 <h5>Add category</h5>
-                <form:form method="post" modelAttribute="addcat">
+                <form:form method="post" modelAttribute="category">
                     <form>
                         <div class="form-group">
-                            <label for="exampleFormControlInput3">Name</label>
-                            <form:input type="text" class="form-control" id="exampleFormControlInput3"
-                                        placeholder="name" path="name"/>
+                            <label for="exampleFormControlInput1">Name</label>
+                            <form:input type="text" class="form-control" id="exampleFormControlInput1"
+                                        placeholder="${category.getName()}" path="name"/>
+                            <form:errors path="name" cssClass="error"/>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput4">Description</label>
-                            <form:input type="text" class="form-control" id="exampleFormControlInput4"
-                                        placeholder="description" path="description"/>
+                            <label for="exampleFormControlInput2">Description</label>
+                            <form:input type="text" class="form-control" id="exampleFormControlInput2"
+                                        placeholder="${category.getDescription()}" path="description"/>
+                            <form:errors path="description" cssClass="error"/>
                         </div>
                         <input type="submit" value="Save">
                     </form>
