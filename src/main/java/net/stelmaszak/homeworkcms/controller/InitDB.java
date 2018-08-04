@@ -147,7 +147,7 @@ public class InitDB {
         article10.addCategory(c3);
         article10.addCategory(c4);
         article11.addCategory(c1);
-        article11.addCategory(c1);
+        article11.addCategory(c5);
 
         articleRepository.save(article1);
         articleRepository.save(article2);
