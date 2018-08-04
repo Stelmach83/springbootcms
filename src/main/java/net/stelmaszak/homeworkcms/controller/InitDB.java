@@ -1,9 +1,11 @@
 package net.stelmaszak.homeworkcms.controller;
 
-import net.stelmaszak.homeworkcms.dao.EntityDao;
 import net.stelmaszak.homeworkcms.entity.Article;
 import net.stelmaszak.homeworkcms.entity.Author;
 import net.stelmaszak.homeworkcms.entity.Category;
+import net.stelmaszak.homeworkcms.repository.ArticleRepository;
+import net.stelmaszak.homeworkcms.repository.AuthorRepository;
+import net.stelmaszak.homeworkcms.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,11 @@ import java.util.Date;
 public class InitDB {
 
     @Autowired
-    private EntityDao entityDao;
+    CategoryRepository categoryRepository;
+    @Autowired
+    ArticleRepository articleRepository;
+    @Autowired
+    AuthorRepository authorRepository;
 
     @RequestMapping("/initDb")
     public String initDb() {
@@ -108,18 +114,18 @@ public class InitDB {
         article11.setContent("This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. This is the content of the article11. ");
         article11.setCreated(created);
 
-        entityDao.saveEntity(a1);
-        entityDao.saveEntity(a2);
-        entityDao.saveEntity(a3);
-        entityDao.saveEntity(a4);
-        entityDao.saveEntity(a5);
+        authorRepository.save(a1);
+        authorRepository.save(a2);
+        authorRepository.save(a3);
+        authorRepository.save(a4);
+        authorRepository.save(a5);
 
+        categoryRepository.save(c1);
+        categoryRepository.save(c2);
+        categoryRepository.save(c3);
+        categoryRepository.save(c4);
+        categoryRepository.save(c5);
 
-        entityDao.saveEntity(c1);
-        entityDao.saveEntity(c2);
-        entityDao.saveEntity(c3);
-        entityDao.saveEntity(c4);
-        entityDao.saveEntity(c5);
         article1.addCategory(c1);
         article1.addCategory(c2);
         article2.addCategory(c3);
@@ -143,30 +149,17 @@ public class InitDB {
         article11.addCategory(c1);
         article11.addCategory(c1);
 
-        entityDao.saveEntity(article1);
-        entityDao.saveEntity(article2);
-        entityDao.saveEntity(article3);
-        entityDao.saveEntity(article4);
-        entityDao.saveEntity(article5);
-        entityDao.saveEntity(article6);
-        entityDao.saveEntity(article7);
-        entityDao.saveEntity(article8);
-        entityDao.saveEntity(article9);
-        entityDao.saveEntity(article10);
-        entityDao.saveEntity(article11);
-
-
-//        entityDao.updateEntity(article1);
-//        entityDao.updateEntity(article2);
-//        entityDao.updateEntity(article3);
-//        entityDao.updateEntity(article4);
-//        entityDao.updateEntity(article5);
-//        entityDao.updateEntity(article6);
-//        entityDao.updateEntity(article7);
-//        entityDao.updateEntity(article8);
-//        entityDao.updateEntity(article9);
-//        entityDao.updateEntity(article10);
-//        entityDao.updateEntity(article11);
+        articleRepository.save(article1);
+        articleRepository.save(article2);
+        articleRepository.save(article3);
+        articleRepository.save(article4);
+        articleRepository.save(article5);
+        articleRepository.save(article6);
+        articleRepository.save(article7);
+        articleRepository.save(article8);
+        articleRepository.save(article9);
+        articleRepository.save(article10);
+        articleRepository.save(article11);
 
         return "redirect:articles";
     }

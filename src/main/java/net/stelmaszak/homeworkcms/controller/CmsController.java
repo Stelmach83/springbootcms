@@ -3,6 +3,8 @@ package net.stelmaszak.homeworkcms.controller;
 import net.stelmaszak.homeworkcms.dao.EntityDao;
 import net.stelmaszak.homeworkcms.entity.Article;
 import net.stelmaszak.homeworkcms.entity.Category;
+import net.stelmaszak.homeworkcms.repository.ArticleRepository;
+import net.stelmaszak.homeworkcms.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +18,16 @@ public class CmsController {
 
     @Autowired
     private EntityDao entityDao;
+    @Autowired
+    ArticleRepository articleRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @RequestMapping({"/", "/articles"})
     public String articles(Model model) {
-        List<Article> articleList = entityDao.loadSomeArticles(5);
+        List<Article> articleList = articleRepository.findFirst5ByOrderByCreatedDesc();
         shorterContent(articleList);
-        List<Category> categoryList = entityDao.loadAllCategories();
+        List<Category> categoryList = categoryRepository.findAll();
         model.addAttribute("articles", articleList);
         model.addAttribute("categories", categoryList);
         return "articles";
@@ -30,10 +36,10 @@ public class CmsController {
 
     @RequestMapping("/articles/{cat}")
     public String articlesByCat(Model model, @PathVariable String cat) {
-        Category category = entityDao.loadCategoryByName(cat);
-        List<Article> articleList = entityDao.loadArticlesByCategory(category);
+        Category category = categoryRepository.findByName(cat);
+        List<Article> articleList = articleRepository.findArticlesByCategories(category);
         shorterContent(articleList);
-        List<Category> categoryList = entityDao.loadAllCategories();
+        List<Category> categoryList = categoryRepository.findAll();
         model.addAttribute("articles", articleList);
         model.addAttribute("categories", categoryList);
         model.addAttribute("category", category);
@@ -42,8 +48,8 @@ public class CmsController {
 
     @RequestMapping("/article/{id}")
     public String loadArticle(Model model, @PathVariable Long id) {
-        List<Category> categoryList = entityDao.loadAllCategories();
-        Article article = entityDao.loadArticleById(id);
+        List<Category> categoryList = categoryRepository.findAll();
+        Article article = articleRepository.getOne(id);
         model.addAttribute("artic", article);
         model.addAttribute("categories", categoryList);
         return "article";

@@ -1,9 +1,11 @@
 package net.stelmaszak.homeworkcms.controller;
 
-import net.stelmaszak.homeworkcms.dao.EntityDao;
 import net.stelmaszak.homeworkcms.entity.Article;
 import net.stelmaszak.homeworkcms.entity.Author;
 import net.stelmaszak.homeworkcms.entity.Category;
+import net.stelmaszak.homeworkcms.repository.ArticleRepository;
+import net.stelmaszak.homeworkcms.repository.AuthorRepository;
+import net.stelmaszak.homeworkcms.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -28,7 +30,11 @@ public class ArticleController {
     private Date created;
 
     @Autowired
-    private EntityDao entityDao;
+    ArticleRepository articleRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
+    @Autowired
+    AuthorRepository authorRepository;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -54,28 +60,28 @@ public class ArticleController {
 
     @RequestMapping("/artpanel")
     public String showArticles(Model model) {
-        List<Category> categoryList = entityDao.loadAllCategories();
+        List<Category> categoryList = categoryRepository.findAll();
         model.addAttribute("categories", categoryList);
-        List<Article> articleList = entityDao.loadAllArticles();
+        List<Article> articleList = articleRepository.findAll();
         model.addAttribute("articles", articleList);
         return "artpanel";
     }
 
     @GetMapping("/editart/{id}")
     public String editArticle(Model model, @PathVariable Long id) {
-        Article article = entityDao.loadArticleById(id);
+        Article article = articleRepository.getOne(id);
         created = article.getCreated();
         model.addAttribute("editart", "true");
         model.addAttribute("article", article);
-        List<Article> articleList = entityDao.loadAllArticles();
+        List<Article> articleList = articleRepository.findAll();
         model.addAttribute("articles", articleList);
-        List<Category> categoryList = entityDao.loadAllCategories();
+        List<Category> categoryList = categoryRepository.findAll();
         categoryCache = new HashMap<>();
         for (Category c : categoryList) {
             categoryCache.put(c.getId().toString(), c);
         }
         model.addAttribute("categories", categoryList);
-        List<Author> authorList = entityDao.loadAllAuthors();
+        List<Author> authorList = authorRepository.findAll();
         for (Author a : authorList) {
             a.setFullName(a.getFirstName() + " " + a.getLastName());
         }
@@ -87,15 +93,15 @@ public class ArticleController {
     public String editArticlePost(Model model, @Valid Article article, BindingResult result) {
         if (result.hasErrors()) {
             model.addAttribute("editart", "true");
-            List<Article> articleList = entityDao.loadAllArticles();
+            List<Article> articleList = articleRepository.findAll();
             model.addAttribute("articles", articleList);
-            List<Category> categoryList = entityDao.loadAllCategories();
+            List<Category> categoryList = categoryRepository.findAll();
             categoryCache = new HashMap<>();
             for (Category c : categoryList) {
                 categoryCache.put(c.getId().toString(), c);
             }
             model.addAttribute("categories", categoryList);
-            List<Author> authorList = entityDao.loadAllAuthors();
+            List<Author> authorList = authorRepository.findAll();
             for (Author a : authorList) {
                 a.setFullName(a.getFirstName() + " " + a.getLastName());
             }
@@ -104,10 +110,10 @@ public class ArticleController {
         } else {
             article.setUpdated(new Date());
             article.setCreated(created);
-            entityDao.updateEntity(article);
-            List<Category> categoryList = entityDao.loadAllCategories();
+            articleRepository.save(article);
+            List<Category> categoryList = categoryRepository.findAll();
             model.addAttribute("categories", categoryList);
-            List<Article> articleList = entityDao.loadAllArticles();
+            List<Article> articleList = articleRepository.findAll();
             model.addAttribute("articles", articleList);
             return "artpanel";
         }
@@ -115,15 +121,15 @@ public class ArticleController {
 
     @GetMapping("/addart")
     public String addArticle(Model model) {
-        List<Category> categoryList = entityDao.loadAllCategories();
+        List<Category> categoryList = categoryRepository.findAll();
         categoryCache = new HashMap<>();
         for (Category c : categoryList) {
             categoryCache.put(c.getId().toString(), c);
         }
         model.addAttribute("categories", categoryList);
-        List<Article> articleList = entityDao.loadAllArticles();
+        List<Article> articleList = articleRepository.findAll();
         model.addAttribute("articles", articleList);
-        List<Author> authorList = entityDao.loadAllAuthors();
+        List<Author> authorList = authorRepository.findAll();
         model.addAttribute("authors", authorList);
         for (Author a : authorList) {
             a.setFullName(a.getFirstName() + " " + a.getLastName());
@@ -137,15 +143,15 @@ public class ArticleController {
     @PostMapping("/addart")
     public String addArticlePost(Model model, @Valid Article article, BindingResult result) {
         if (result.hasErrors()) {
-            List<Category> categoryList = entityDao.loadAllCategories();
+            List<Category> categoryList = categoryRepository.findAll();
             categoryCache = new HashMap<>();
             for (Category c : categoryList) {
                 categoryCache.put(c.getId().toString(), c);
             }
             model.addAttribute("categories", categoryList);
-            List<Article> articleList = entityDao.loadAllArticles();
+            List<Article> articleList = articleRepository.findAll();
             model.addAttribute("articles", articleList);
-            List<Author> authorList = entityDao.loadAllAuthors();
+            List<Author> authorList = authorRepository.findAll();
             model.addAttribute("authors", authorList);
             for (Author a : authorList) {
                 a.setFullName(a.getFirstName() + " " + a.getLastName());
@@ -154,10 +160,10 @@ public class ArticleController {
             return "artpanel";
         } else {
             article.setCreated(new Date());
-            entityDao.saveEntity(article);
-            List<Category> categoryList = entityDao.loadAllCategories();
+            articleRepository.save(article);
+            List<Category> categoryList = categoryRepository.findAll();
             model.addAttribute("categories", categoryList);
-            List<Article> articleList = entityDao.loadAllArticles();
+            List<Article> articleList = articleRepository.findAll();
             model.addAttribute("articles", articleList);
             return "artpanel";
         }
@@ -165,8 +171,8 @@ public class ArticleController {
 
     @RequestMapping("/deleteart/{id}")
     public String deleteArticle(Model model, @PathVariable Long id) {
-        Article delArticle = entityDao.loadArticleById(id);
-        List<Category> artCategories = entityDao.loadAllCategories();
+        Article delArticle = articleRepository.getOne(id);
+        List<Category> artCategories = categoryRepository.findAll();
         for (Category category : artCategories) {
             if (delArticle.getCategories().contains(category)) {
                 delArticle.removeCategory(category);
@@ -175,10 +181,10 @@ public class ArticleController {
         if (delArticle.getAuthor() != null) {
             delArticle.setAuthor(null);
         }
-        entityDao.deleteEntity(delArticle);
-        List<Category> categoryList = entityDao.loadAllCategories();
+        articleRepository.delete(delArticle);
+        List<Category> categoryList = categoryRepository.findAll();
         model.addAttribute("categories", categoryList);
-        List<Article> articleList = entityDao.loadAllArticles();
+        List<Article> articleList = articleRepository.findAll();
         model.addAttribute("articles", articleList);
         return "artpanel";
     }
