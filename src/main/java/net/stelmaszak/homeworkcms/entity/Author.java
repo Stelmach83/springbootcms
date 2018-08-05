@@ -1,11 +1,14 @@
 package net.stelmaszak.homeworkcms.entity;
 
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "author")
+@EqualsAndHashCode
 public class Author implements InterfaceEntity {
 
     @Id

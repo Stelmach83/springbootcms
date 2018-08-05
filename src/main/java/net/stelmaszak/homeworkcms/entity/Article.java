@@ -1,5 +1,6 @@
 package net.stelmaszak.homeworkcms.entity;
 
+import lombok.EqualsAndHashCode;
 import net.stelmaszak.homeworkcms.validator.MaxCategories;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -11,6 +12,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "article")
+@EqualsAndHashCode
 public class Article implements InterfaceEntity {
 
     @Id
@@ -39,7 +41,7 @@ public class Article implements InterfaceEntity {
     @NotNull
     @Size(min = 1)
     @MaxCategories("2")
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "article_category", joinColumns = {@JoinColumn(name = "article_id")}, inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private List<Category> categories = new ArrayList<>();
 

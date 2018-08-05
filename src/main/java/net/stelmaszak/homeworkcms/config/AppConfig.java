@@ -1,5 +1,6 @@
 package net.stelmaszak.homeworkcms.config;
 
+import net.stelmaszak.homeworkcms.converter.ArticleConverter;
 import net.stelmaszak.homeworkcms.converter.AuthorConverter;
 import net.stelmaszak.homeworkcms.converter.CategoryConverter;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,7 @@ public class AppConfig {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(getAuthorConverter());
         registry.addConverter(getCategoryConverter());
+        registry.addConverter(getArticleConverter());
     }
 
     @Bean
@@ -38,5 +40,10 @@ public class AppConfig {
     @Bean
     public CategoryConverter getCategoryConverter() {
         return new CategoryConverter();
+    }
+
+    @Bean
+    public ArticleConverter getArticleConverter() {
+        return new ArticleConverter();
     }
 }
