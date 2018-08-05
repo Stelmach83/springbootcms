@@ -110,12 +110,12 @@ public class Article implements InterfaceEntity {
 
     public void addCategory(Category category) {
         categories.add(category);
-//        category.getArticles().add(this);
+        category.getArticles().add(this);
     }
 
     public void removeCategory(Category category) {
         categories.remove(category);
-//        category.getArticles().remove(this);
+        category.getArticles().remove(this);
     }
 
     @Override

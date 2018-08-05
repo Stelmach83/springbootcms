@@ -34,12 +34,14 @@ public class CategoryController {
         model.addAttribute("categories", categoryList);
         Category category = categoryRepository.getOne(id);
         model.addAttribute("category", category);
+        List<Article> articles = articleRepository.findAll();
+        model.addAttribute("articles", articles);
         model.addAttribute("editcat", "true");
         return "categories";
     }
 
     @PostMapping("/editcat/{id}")
-    public String editCatPost(Model model, @Valid Category category, BindingResult result) {
+    public String editCatPost(Model model, @Valid @ModelAttribute Category category, BindingResult result) {
         if (result.hasErrors()) {
             List<Category> categoryList = categoryRepository.findAll();
             model.addAttribute("categories", categoryList);
