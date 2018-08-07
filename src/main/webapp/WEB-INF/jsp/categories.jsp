@@ -93,11 +93,6 @@
                                         placeholder="${category.getDescription()}" path="description"/>
                             <form:errors path="description" cssClass="error"/>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput4">Aricles</label>
-                            <form:select items="${articles}" itemValue="id" multiple="true" itemLabel="title" class="form-control" id="exampleFormControlInput4" path="articles"/>
-                            <form:errors path="articles" cssClass="error"/>
-                        </div>
                         <input type="submit" value="Save">
                     </form>
                 </form:form>
@@ -120,11 +115,6 @@
                                         placeholder="${category.getDescription()}" path="description"/>
                             <form:errors path="description" cssClass="error"/>
                         </div>
-                            <%--<div class="form-group">--%>
-                            <%--<label for="exampleFormControlInput4">Aricles</label>--%>
-                            <%--<form:select items="${articles}" itemValue="id" multiple="true" itemLabel="title" class="form-control" id="exampleFormControlInput4" path="articles"/>--%>
-                            <%--<form:errors path="articles" cssClass="error"/>--%>
-                            <%--</div>--%>
                         <input type="submit" value="Save">
                     </form>
                 </form:form>
