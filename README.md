@@ -1,3 +1,3 @@
 # springbootcms
 
-Application is deployed @ www.stelmaszak.net:8080/springcms/
+Application is deployed @ www.stelmaszak.net/springcms
